@@ -1,4 +1,4 @@
-package Camunda_Pilot.Schadenaufnahme;
+package camundPilot.Schadenaufnahme;
 
 import java.util.logging.Logger;
 

@@ -1,7 +1,10 @@
-package Camunda_Pilot.Schadenaufnahme;
+package camundaPilot.Schadenaufnahme;
 
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +22,7 @@ import org.camunda.bpm.consulting.process_test_coverage.ProcessTestCoverage;
 public class InMemoryH2Test {
 
   @Rule
-  public ProcessEngineRule rule = new ProcessEngineRule();
+  public ProcessEngineRule rule = new ProcessEngineRule(new StandaloneInMemProcessEngineConfiguration().buildProcessEngine());
 
   private static final String PROCESS_DEFINITION_KEY = "Schadenaufnahme";
 
@@ -44,11 +47,11 @@ public class InMemoryH2Test {
   @Test
   @Deployment(resources = "Schadenaufnahme.bpmn")
   public void testHappyPath() {
-	  //ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 	  
-	  // Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
+	  ProcessEngine processEngine = rule.getProcessEngine();
+	  ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 	  
-	  // To generate the coverage report for a single tests add this line as the last line of your test method:
+	  
 	  //ProcessTestCoverage.calculate(processInstance, rule.getProcessEngine());
   }
 

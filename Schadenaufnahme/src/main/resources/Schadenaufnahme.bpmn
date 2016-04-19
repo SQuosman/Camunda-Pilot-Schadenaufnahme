@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
   <bpmn:process id="Schadenaufnahme" name="Schadenaufnahme" isExecutable="true">
+<<<<<<< HEAD
     <bpmn:sequenceFlow id="SequenceFlow_16faq6n" sourceRef="Schadenmeldung_senden" targetRef="Schadenmeldung_erfolgt" />
     <bpmn:sequenceFlow id="SequenceFlow_0ngt2li" sourceRef="Daten_aufbereiten" targetRef="Schadenmeldung_senden" />
     <bpmn:sequenceFlow id="SequenceFlow_04gz15v" sourceRef="UserTask_Schadendaten_erfragen" targetRef="Daten_aufbereiten" />
@@ -16,6 +17,23 @@
     <bpmn:sequenceFlow id="SequenceFlow_1pc5vz0" sourceRef="merge1" targetRef="Vertragsdaten_erfragen" />
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="merge1" />
     <bpmn:intermediateThrowEvent id="WS_senden" name="Daten an Webservice senden">
+=======
+    <bpmn:sequenceFlow id="SequenceFlow_16faq6n" sourceRef="IntermediateCatchEvent_Meldung_senden" targetRef="EndEventProcessEnded" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ngt2li" sourceRef="ServiceTask_Daten_aufbereiten" targetRef="IntermediateCatchEvent_Meldung_senden" />
+    <bpmn:sequenceFlow id="SequenceFlow_04gz15v" sourceRef="UserTask_Schadendaten_erfragen" targetRef="ServiceTask_Daten_aufbereiten" />
+    <bpmn:sequenceFlow id="SequenceFlow_0fqwf5q" name="ja" sourceRef="ExclusiveGateway_Vertrag_gefunden" targetRef="UserTask_Schadendaten_erfragen">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{ContractFound}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0vulqcm" name="nein" sourceRef="ExclusiveGateway_Vertrag_gefunden" targetRef="ExclusiveGateway_merge1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{!ContractFound}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0oqw8jz" sourceRef="IntermediateCatchEvent_WS_empfangen" targetRef="ExclusiveGateway_Vertrag_gefunden" />
+    <bpmn:sequenceFlow id="SequenceFlow_00ba3q5" sourceRef="IntermediateThrowEvent_WS_senden" targetRef="IntermediateCatchEvent_WS_empfangen" />
+    <bpmn:sequenceFlow id="SequenceFlow_1nvrvox" sourceRef="UserTask_Vertragsdaten_erfragen" targetRef="IntermediateThrowEvent_WS_senden" />
+    <bpmn:sequenceFlow id="SequenceFlow_1pc5vz0" sourceRef="ExclusiveGateway_merge1" targetRef="UserTask_Vertragsdaten_erfragen" />
+    <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="ExclusiveGateway_merge1" />
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_WS_senden" name="Daten an Webservice senden">
+>>>>>>> origin/master
       <bpmn:incoming>SequenceFlow_1nvrvox</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_00ba3q5</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_06g8czu" />
@@ -28,7 +46,11 @@
       <bpmn:outgoing>SequenceFlow_16faq6n</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_0hq6ann" />
     </bpmn:intermediateCatchEvent>
+<<<<<<< HEAD
     <bpmn:serviceTask id="Daten_aufbereiten" name="Daten aufbereiten" camunda:class="/Schadenaufnahme/src/main/java/camundPilot/Schadenaufnahme/prepareClaimData.java">
+=======
+    <bpmn:serviceTask id="ServiceTask_Daten_aufbereiten" name="Daten aufbereiten" camunda:class="/Schadenaufnahme/src/main/java/camundPilot/Schadenaufnahme/prepareClaimData.java">
+>>>>>>> origin/master
       <bpmn:incoming>SequenceFlow_04gz15v</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ngt2li</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -70,10 +92,17 @@
           <dc:Bounds x="95" y="226" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
       <bpmndi:BPMNShape id="UserTask_1r8a9x0_di" bpmnElement="Vertragsdaten_erfragen">
         <dc:Bounds x="295" y="168" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_194ywe2_di" bpmnElement="WS_empfangen">
+=======
+      <bpmndi:BPMNShape id="UserTask_1r8a9x0_di" bpmnElement="UserTask_Vertragsdaten_erfragen">
+        <dc:Bounds x="295" y="168" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_194ywe2_di" bpmnElement="IntermediateCatchEvent_WS_empfangen">
+>>>>>>> origin/master
         <dc:Bounds x="530" y="190" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="503" y="226" width="90" height="20" />
@@ -85,7 +114,11 @@
           <dc:Bounds x="603" y="233" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
       <bpmndi:BPMNShape id="ExclusiveGateway_1euk5yi_di" bpmnElement="merge1" isMarkerVisible="true">
+=======
+      <bpmndi:BPMNShape id="ExclusiveGateway_1euk5yi_di" bpmnElement="ExclusiveGateway_merge1" isMarkerVisible="true">
+>>>>>>> origin/master
         <dc:Bounds x="204" y="183" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="184" y="233" width="90" height="20" />
@@ -94,22 +127,37 @@
       <bpmndi:BPMNShape id="UserTask_0pbeueo_di" bpmnElement="UserTask_Schadendaten_erfragen">
         <dc:Bounds x="728" y="168" width="100" height="80" />
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
       <bpmndi:BPMNShape id="ServiceTask_128qac7_di" bpmnElement="Daten_aufbereiten">
         <dc:Bounds x="869" y="168" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_0tbyye2_di" bpmnElement="Schadenmeldung_senden">
+=======
+      <bpmndi:BPMNShape id="ServiceTask_128qac7_di" bpmnElement="ServiceTask_Daten_aufbereiten">
+        <dc:Bounds x="869" y="168" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0tbyye2_di" bpmnElement="IntermediateCatchEvent_Meldung_senden">
+>>>>>>> origin/master
         <dc:Bounds x="1020" y="190" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="993" y="226" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
       <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="Schadenmeldung_erfolgt">
+=======
+      <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="EndEventProcessEnded">
+>>>>>>> origin/master
         <dc:Bounds x="1116" y="190" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1089" y="226" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
       <bpmndi:BPMNShape id="IntermediateThrowEvent_0extgmg_di" bpmnElement="WS_senden">
+=======
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0extgmg_di" bpmnElement="IntermediateThrowEvent_WS_senden">
+>>>>>>> origin/master
         <dc:Bounds x="446" y="190" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="419" y="226" width="90" height="20" />
